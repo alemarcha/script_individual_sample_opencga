@@ -1,0 +1,23 @@
+    {
+      "somatic": true,
+       "phenotypes": [
+        {
+          "id": "HP:0012118",
+          "name": "Laryngeal carcinoma",
+          "source": "HPO"
+        }
+      ],
+      "annotationSets": 
+        {
+          "name": "annotation_sample_proban_NodeJS12",
+          "annotations": {
+            "technicalData": "Comment2",
+            "testYear": "2010",
+            "physician": "Dra Asunción2",
+            "testAge": "602",
+            "ngsPlatform": "Illumina",
+            "hospital": "HUVR2"
+          }
+        }
+      
+    }

@@ -1,0 +1,25 @@
+{
+  "name": "NodeJSsdsdsdsd",
+  "ethnicity": "white_mediterranean",
+  "dateOfBirth": "1950",
+  "population": {
+    "name": "Spain",
+    "subpopulation": "Huesca",
+    "description": ""
+  },
+  "karyotypicSex": "XX",
+  "sex": "FEMALE",
+  "lifeStatus": "ALIVE",
+  "affectationStatus": "AFFECTED",
+  "parentalConsanguinity": false,
+  "phenotypes": [
+    {
+      "id": "HP:0012118",
+      "name": "Laryngeal carcinoma",
+      "source": "HPO"
+    }
+  ],
+  "samples": [
+    {"name": "Sample_Node22dfdfdf2222"}
+  ]
+}
