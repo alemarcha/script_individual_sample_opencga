@@ -2,27 +2,57 @@ var Client = require('node-rest-client').Client;
  
 
 var client = new Client();
- 
-// direct way 
-
 
 // registering remote methods 
-client.registerMethod("pruebaInicial", "http://localhost:8080/opencga-1.3.0-dev/webservices/rest/v1/projects/search", "GET");
-client.registerMethod("updateSampleMethod", "http://localhost:8080/opencga-1.3.0-dev/webservices/rest/v1/samples/${id}/update", "POST");
-client.registerMethod("updateAnnotationSetMethod", "http://localhost:8080/opencga-1.3.0-dev/webservices/rest/v1/samples/${id}/annotationsets/create", "POST");
-client.registerMethod("createIndividualMethod", "http://localhost:8080/opencga-1.3.0-dev/webservices/rest/v1/individuals/create", "POST");
 
-exports.prueba = function (params){
-	console.log("prueba");
+exports.init = function (params){
+	let host = params.host;
+	console.log("INIT WEBServices with: " + params.host);
+	client.registerMethod("ping", host + "/webservices/rest/v1/projects/search", "GET");
+	client.registerMethod("createSampleMethod", host + "/webservices/rest/v1/samples/create", "POST");
+	client.registerMethod("updateSampleMethod", host + "/webservices/rest/v1/samples/${id}/update", "POST");
+	client.registerMethod("updateAnnotationSetMethod", host + "/webservices/rest/v1/samples/${id}/annotationsets/create", "POST");
+	client.registerMethod("createIndividualMethod", host + "/webservices/rest/v1/individuals/create", "POST");
+}
+
+// remote Methods
+exports.ping = function (params){
+	console.log("PING");
 	let args = {
 		parameters: { sid: params.sid },
 	}
-	client.methods.pruebaInicial(args, function (data, response) {
+	client.methods.ping(args, function (data, response) {
 	    // parsed response body as js object 
-	    console.log(data);
+	    console.log(JSON.stringify(data));
 	    // raw response 
-	    console.log(response);
+	    //console.log(response);
 	});
+}
+
+exports.createSampleMethod = function (params){
+	console.log("UPDATE Sample");
+
+
+	console.log(params.json.annotationSets);
+	
+	let dataAnnotations = Object.assign({},params.json.annotationSets);
+	let dataSample =  Object.assign({},params.json, {annotationSets:undefined});
+	console.log(dataSample);
+	let argsSample = {
+		data: dataSample,
+		parameters: { study: params.study, sid: params.sid},
+		headers: {"Content-Type":"application/json"},
+		path:{id: params.sample}
+	}
+
+	
+	//console.log(args);
+	client.methods.updateSampleMethod(argsSample, function (data, response) {
+	    // parsed response body as js object 
+	    console.log("CREATE SAMPLE FINISH");
+	    console.log(JSON.stringify(data));
+	});
+
 }
 
 exports.updateSample = function (params){
@@ -49,7 +79,7 @@ exports.updateSample = function (params){
 	    console.log(data);
 	    // raw response 
 	   // console.log(response);
-	   	if(dataAnnotations){
+	   	if (dataAnnotations) {
 			let argsAnnotation = {
 				data: dataAnnotations,
 				parameters: { study: params.study, sid: params.sid, variableSet: params.variableSetId},
@@ -59,9 +89,9 @@ exports.updateSample = function (params){
 	
 			client.methods.updateAnnotationSetMethod(argsAnnotation, function (data, response) {
 			    // parsed response body as js object 
-			   	console.log("UPDATE ANNOTATION SETSSAMPLE FINISH");
+			   	console.log("UPDATE ANNOTATION SETS FINISH");
 
-			    console.log(data);
+	    		console.log(JSON.stringify(data));
 			    // raw response 
 			   // console.log(response);
 			});
@@ -80,9 +110,9 @@ exports.createIndividual = function (params){
 		}
 	client.methods.createIndividualMethod(args, function (data, response) {
 	    // parsed response body as js object 
-	    console.log(data);
+	    console.log(JSON.stringify(data));
 	    // raw response 
-//	    console.log(response);
+	    //console.log(response);
 	});
 }
 
