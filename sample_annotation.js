@@ -22,4 +22,4 @@ let sampleID = args.sampleid;
 let variableSetId = args.variablesetid;
 ClientApi.init({ host:hostApi })
 
-ClientApi.updateSample({sid:sidToken, sample: sampleID, json: jsonSample, study: study, variableSetId: variableSetId, host: host});
+ClientApi.updateSample({sid:sidToken, sample: sampleID, json: jsonSample, study: study, variableSetId: variableSetId});
