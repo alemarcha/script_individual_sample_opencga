@@ -23,7 +23,12 @@ exports.ping = function (params){
 	}
 	client.methods.ping(args, function (data, response) {
 	    // parsed response body as js object 
-	    console.log(JSON.stringify(data));
+		if(Buffer.isBuffer(data)){
+			data = data.toString('utf8');
+		} else {
+			data = JSON.stringify(data);
+		}
+		console.log(data);
 	    // raw response 
 	    //console.log(response);
 	});
@@ -50,7 +55,12 @@ exports.createSampleMethod = function (params){
 	client.methods.updateSampleMethod(argsSample, function (data, response) {
 	    // parsed response body as js object 
 	    console.log("CREATE SAMPLE FINISH");
-	    console.log(JSON.stringify(data));
+		if(Buffer.isBuffer(data)){
+			data = data.toString('utf8');
+		} else {
+			data = JSON.stringify(data);
+		}
+		console.log(data);
 	});
 
 }
@@ -75,7 +85,12 @@ exports.updateSample = function (params){
 	//console.log(args);
 	client.methods.updateSampleMethod(argsSample, function (data, response) {
 	    // parsed response body as js object 
-	    console.log("UPDATE SAMPLE FINISH");
+		console.log("UPDATE SAMPLE FINISH");
+		if(Buffer.isBuffer(data)){
+			data = data.toString('utf8');
+		} else {
+			data = JSON.stringify(data);
+		}
 	    console.log(data);
 	    // raw response 
 	   // console.log(response);
@@ -90,8 +105,12 @@ exports.updateSample = function (params){
 			client.methods.updateAnnotationSetMethod(argsAnnotation, function (data, response) {
 			    // parsed response body as js object 
 			   	console.log("UPDATE ANNOTATION SETS FINISH");
-
-	    		console.log(JSON.stringify(data));
+				if(Buffer.isBuffer(data)){
+					data = data.toString('utf8');
+				} else {
+					data = JSON.stringify(data);
+				}
+	    		console.log(data);
 			    // raw response 
 			   // console.log(response);
 			});
@@ -102,17 +121,24 @@ exports.updateSample = function (params){
 
 exports.createIndividual = function (params){
 	console.log("CREATE Individual");
+	console.log("")
 	let dataIndividual =  Object.assign({},params.json);
 	let args = {
 			data: dataIndividual,
 			parameters: { study: params.study, sid: params.sid},
 			headers: {"Content-Type":"application/json"}
 		}
+
 	client.methods.createIndividualMethod(args, function (data, response) {
 	    // parsed response body as js object 
-	    console.log(JSON.stringify(data));
+		if(Buffer.isBuffer(data)){
+			data = data.toString('utf8');
+		} else {
+			data = JSON.stringify(data);
+		}
+		console.log(data);
 	    // raw response 
-	    //console.log(response);
+	    // console.log(response);
 	});
 }
 
